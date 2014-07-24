@@ -3,7 +3,7 @@ def calculator(input_string)
   numbers = []
   operators = []
   counter = 0
-  subtotal = 0
+
   input_string.scan(/\d+/) do |x|
     numbers << x.to_f
   end
@@ -12,11 +12,10 @@ def calculator(input_string)
       operators << dictionary[word]
     end
   end
-  subtotal = numbers[counter]
-
-  operators.each do |operator|
-    subtotal += subtotal.send(operator, numbers[counter + 1])
-    counter +=1
+  subtotal = numbers[0]
+  numbers.slice(1..-1).each do |number|
+    subtotal = subtotal.send(operators[counter], number)
+    counter += 1
   end
   subtotal
 end
